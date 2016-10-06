@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DiscountLocator</string>
+    <string name="test_button">Say Hello!</string>
 </resources>

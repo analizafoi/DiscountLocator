@@ -16,12 +16,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hr.foi.air.core.DataLoadedListener;
+import hr.foi.air.core.DataLoader;
 import hr.foi.air.database.entities.Discount;
 import hr.foi.air.database.entities.Discount_Table;
 import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.helper.MockData;
+import hr.foi.air.discountlocator.loaders.DbDataLoader;
+import hr.foi.air.discountlocator.loaders.WsDataLoader;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements DataLoadedListener {
 
     @BindView(R.id.discount_list)
     ListView mListView;
@@ -38,13 +42,25 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.test_button)
     public void buttonClicked(View view){
-        if(SQLite.select().from(Store.class).queryList().isEmpty()){
-            MockData.writeAll();
-        }
 
-        final List<Discount> discounts = SQLite.select().from(Discount.class).where(Discount_Table.discount.greaterThan(5)).queryList();
+        DataLoader dataLoader;
+        if(Store.getAll().isEmpty()){
+            System.out.println("Loading web data");
+            dataLoader = new WsDataLoader();
+        } else {
+            System.out.println("Loading local data");
+            dataLoader = new DbDataLoader();
+        }
+        dataLoader.loadData(this);
+
+    }
+
+    @Override
+    public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
+        System.out.println("Data is here... ");
         String[] listItems = new String[discounts.size()];
-        for(int i = 0; i < discounts.size(); i++){
+
+        for (int i = 0; i < discounts.size(); i++) {
             listItems[i] = discounts.get(i).getName();
         }
 

@@ -105,4 +105,8 @@ public class Discount extends BaseModel{
     public static List<Discount> getAll(){
         return SQLite.select().from(Discount.class).queryList();
     }
+
+    public static Discount getDiscountById(int id){
+        return SQLite.select().from(Discount.class).where(Discount_Table.id.eq(id)).querySingle();
+    }
 }

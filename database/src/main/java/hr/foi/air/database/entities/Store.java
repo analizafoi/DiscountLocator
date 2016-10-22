@@ -27,6 +27,16 @@ public class Store extends BaseModel{
     public Store() {
     }
 
+    public Store(Store store) {
+        this.id = store.getId();
+        this.name = store.getName();
+        this.description = store.getDescription();
+        this.imgUrl = store.getImgUrl();
+        this.longitude = store.getLongitude();
+        this.latitude = store.getLatitude();
+        this.discountList = store.getDiscountList();
+    }
+
     public Store(int id, String name, String description, String imgUrl, long longitude, long latitude) {
         this.id = id;
         this.name = name;
@@ -97,6 +107,11 @@ public class Store extends BaseModel{
 
     public static List<Store> getAll(){
         return SQLite.select().from(Store.class).queryList();
+    }
+
+    public static Store getStoreById(int id){
+        Store store = new Select().from(Store.class).where(Store_Table.id.eq(id)).querySingle();
+        return store;
     }
 
 }

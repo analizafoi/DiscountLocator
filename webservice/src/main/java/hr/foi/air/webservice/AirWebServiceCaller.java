@@ -46,7 +46,12 @@ public class AirWebServiceCaller {
     public void getAll(String method, final Type entityType){
 
         AirWebService serviceCaller = retrofit.create(AirWebService.class);
-        Call<AirWebServiceResponse> call = serviceCaller.getStores(method);
+        Call<AirWebServiceResponse> call;
+        if(entityType == Store.class)
+            call = serviceCaller.getStores(method);
+        else
+            call = serviceCaller.getDiscounts(method);
+
 
         if(call != null){
             call.enqueue(new Callback<AirWebServiceResponse>() {

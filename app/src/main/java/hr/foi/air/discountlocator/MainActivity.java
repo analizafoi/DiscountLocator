@@ -1,6 +1,8 @@
 package hr.foi.air.discountlocator;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,22 +31,29 @@ import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.adapters.ExpandableStoreItem;
 import hr.foi.air.discountlocator.adapters.StoreRecyclerAdapter;
 import hr.foi.air.discountlocator.helper.MockData;
+import hr.foi.air.discountlocator.helper.Util;
 import hr.foi.air.discountlocator.loaders.DbDataLoader;
 import hr.foi.air.discountlocator.loaders.WsDataLoader;
 
-public class MainActivity extends AppCompatActivity  implements DataLoadedListener {
+public class MainActivity extends AppCompatActivity  implements DataLoadedListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private StoreRecyclerAdapter adapter;
+    private Util util = new Util();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        util.setLanguage(this);
+
         ButterKnife.bind(this);
         FlowManager.init(new FlowConfig.Builder(this).build());
 
         loadData();
+
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -98,5 +107,11 @@ public class MainActivity extends AppCompatActivity  implements DataLoadedListen
                 adapter.expandParent(0);
             }
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        util.setLanguage(this);
+        this.recreate();
     }
 }

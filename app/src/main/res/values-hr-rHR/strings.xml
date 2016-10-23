@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DiscountLocator</string>
+    <string name="test_button">Say Hello!</string>
+    <string name="preferences">Postavke</string>
+    <string name="cancel">Otkaži</string>
+    <string name="delete">Obriši</string>
+    <string name="removal_question">Želite li ukloniti odabrani element?</string>
+    <string name="username">Korisničko ime</string>
+    <string name="load_data_from">Uvijek čitaj podatke s web servisa?</string>
+    <string name="app_lang_pref">Zadani jezik</string>
+</resources>

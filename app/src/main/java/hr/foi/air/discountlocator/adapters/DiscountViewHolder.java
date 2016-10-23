@@ -1,5 +1,7 @@
 package hr.foi.air.discountlocator.adapters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +12,9 @@ import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import hr.foi.air.database.entities.Discount;
+import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.DiscountDetailsActivity;
 import hr.foi.air.discountlocator.R;
 
@@ -55,6 +59,45 @@ public class DiscountViewHolder extends ChildViewHolder {
         Intent intent = new Intent(itemView.getContext(), DiscountDetailsActivity.class);
         intent.putExtras(args);
         itemView.getContext().startActivity(intent);
+    }
+
+    @OnLongClick
+    public boolean discountLongSelected(){
+        // AlertDialog import android.app.AlertDialog
+        final AlertDialog alertDialog = new AlertDialog.Builder(itemView.getContext()).create();
+        final int parentPosition = getParentAdapterPosition();
+
+        alertDialog.setTitle(itemView.getContext().getString(R.string.removal_question));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, itemView.getContext().getString(R.string.delete), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Store parentStore = Store.getStoreById(mDiscount.getStoreId());
+                // delete in database
+                mDiscount.delete();
+                // delete in list items
+                mAdapter.getParentList().get(getParentAdapterPosition()).getChildList().remove(getChildAdapterPosition());
+                // redraw list and remove this item
+                mAdapter.notifyChildRemoved(getParentAdapterPosition(), getChildAdapterPosition());
+                mAdapter.notifyDataSetChanged();
+
+                if(mAdapter.getParentList().get(parentPosition).getChildList().size() == 0){
+                    mAdapter.notifyParentRemoved(parentPosition);
+                    parentStore.delete();
+                    mAdapter.getParentList().remove(parentPosition);
+                    mAdapter.notifyDataSetChanged();
+                }
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, itemView.getContext().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+        return true;
     }
 
 }

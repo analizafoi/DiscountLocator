@@ -1,5 +1,6 @@
 package hr.foi.air.discountlocator;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,7 +56,12 @@ public class MainActivity extends AppCompatActivity  implements DataLoadedListen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO: code to be added here
+        switch (item.getItemId()){
+            case R.id.activity_app_preference:
+                Intent intent = new Intent(this, AppPreferenceActivity.class);
+                startActivity(intent);
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:title="@string/load_data_from"
+        android:key="pref_load_data_from_ws" />
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/username"
+        android:key="pref_username" />
+    <ListPreference
+        android:defaultValue="en"
+        android:title="@string/app_lang_pref"
+        android:entries="@array/lang_entries"
+        android:entryValues="@array/lang_values"
+        android:key="pref_lang" />
+</PreferenceScreen>

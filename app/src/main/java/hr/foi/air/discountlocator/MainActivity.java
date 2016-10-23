@@ -19,16 +19,12 @@ import butterknife.OnClick;
 import hr.foi.air.core.DataLoadedListener;
 import hr.foi.air.core.DataLoader;
 import hr.foi.air.database.entities.Discount;
-import hr.foi.air.database.entities.Discount_Table;
 import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.helper.MockData;
 import hr.foi.air.discountlocator.loaders.DbDataLoader;
 import hr.foi.air.discountlocator.loaders.WsDataLoader;
 
 public class MainActivity extends AppCompatActivity  implements DataLoadedListener {
-
-    @BindView(R.id.discount_list)
-    ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +60,5 @@ public class MainActivity extends AppCompatActivity  implements DataLoadedListen
             listItems[i] = discounts.get(i).getName();
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
-        mListView.setAdapter(adapter);
     }
 }

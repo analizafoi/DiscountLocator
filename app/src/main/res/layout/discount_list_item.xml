@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    card_view:cardCornerRadius="0dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/discount_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:textIsSelectable="false"
+            tools:text="Demo discount!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/discount_description"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:textIsSelectable="false"
+                android:textStyle="normal|italic"
+                tools:text="A wild discount! - Everything 50% off!"
+                android:layout_weight="0.54"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:id="@+id/discount_value"
+                android:layout_height="match_parent"
+                android:text="14"
+                android:layout_gravity="right"
+                android:layout_width="80dp"
+                android:layout_weight="0.29"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAlignment="center" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -16,7 +16,7 @@ import java.util.List;
 @Table(database = MainDatabase.class)
 public class Store extends BaseModel{
 
-    @PrimaryKey (autoincrement = true)
+    @PrimaryKey
     @Column int id;
     @Column String name;
     @Column String description;

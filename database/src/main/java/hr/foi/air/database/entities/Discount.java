@@ -17,7 +17,7 @@ import java.util.List;
 @Table(database = MainDatabase.class)
 public class Discount extends BaseModel{
 
-    @PrimaryKey (autoincrement = true)
+    @PrimaryKey
     @Column int id;
     @Column String name;
     @Column String description;

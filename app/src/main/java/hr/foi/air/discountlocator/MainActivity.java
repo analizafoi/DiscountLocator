@@ -1,7 +1,10 @@
 package hr.foi.air.discountlocator;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -12,6 +15,7 @@ import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import butterknife.ButterKnife;
+import hr.foi.air.discountlocator.fragments.DiscountListFragment;
 import hr.foi.air.discountlocator.helper.Util;
 
 public class MainActivity extends AppCompatActivity  implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -30,6 +34,12 @@ public class MainActivity extends AppCompatActivity  implements SharedPreference
 
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
+
+        DiscountListFragment mDiscountListFragment = new DiscountListFragment();
+        FragmentManager mFragmentManager = getFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.fragment_container, mDiscountListFragment);
+        mFragmentTransaction.commit();
     }
 
     @Override

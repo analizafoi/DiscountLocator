@@ -11,4 +11,7 @@
     <string name="nav_header_info">foi@foi.hr</string>
     <string name="navigation_drawer_open">Open drawer</string>
     <string name="navigation_drawer_close">Close drawer</string>
+    <string name="menu_list">List view</string>
+    <string name="menu_map">Map view</string>
+    <string name="menu_about">About app</string>
 </resources>

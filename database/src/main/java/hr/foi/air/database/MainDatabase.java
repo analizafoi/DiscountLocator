@@ -1,4 +1,4 @@
-package hr.foi.air.database.entities;
+package hr.foi.air.database;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 

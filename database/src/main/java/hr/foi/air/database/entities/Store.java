@@ -9,6 +9,8 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.List;
 
+import hr.foi.air.database.MainDatabase;
+
 /**
  * Created by Ivan on 6.10.2016..
  */

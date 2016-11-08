@@ -7,6 +7,8 @@
     <string name="username">Username</string>
     <string name="load_data_from">Load data from web service by default?</string>
     <string name="app_lang_pref">Language preference</string>
+    <string name="nav_header_title">Discount Locator</string>
+    <string name="nav_header_info">foi@foi.hr</string>
     <string name="navigation_drawer_open">Open drawer</string>
     <string name="navigation_drawer_close">Close drawer</string>
 </resources>

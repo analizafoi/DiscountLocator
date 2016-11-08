@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity  implements SharedPreference
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
 
-        DiscountListFragment mDiscountListFragment = new DiscountListFragment();
-        FragmentManager mFragmentManager = getFragmentManager();
-        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.fragment_container, mDiscountListFragment);
-        mFragmentTransaction.commit();
+        //DiscountListFragment mDiscountListFragment = new DiscountListFragment();
+        //FragmentManager mFragmentManager = getFragmentManager();
+        //FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        //mFragmentTransaction.replace(R.id.fragment_container, mDiscountListFragment);
+        //mFragmentTransaction.commit();
     }
 
     @Override

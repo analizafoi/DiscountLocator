@@ -1,17 +1,18 @@
 package hr.foi.air.discountlocator;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import hr.foi.air.database.entities.Discount;
+import hr.foi.air.discountlocator.architecture.interactor.impl.DiscountDetailsInteractorImpl;
+import hr.foi.air.discountlocator.architecture.presenter.DiscountDetailsPresenter;
+import hr.foi.air.discountlocator.architecture.presenter.impl.DiscountDetailsPresenterImpl;
+import hr.foi.air.discountlocator.architecture.view.DiscountDetailsView;
 
-public class DiscountDetailsActivity extends AppCompatActivity {
+public class DiscountDetailsActivity extends AppCompatActivity implements DiscountDetailsView {
 
     @BindView(R.id.discount_details_name)
     TextView txtName;
@@ -40,17 +41,28 @@ public class DiscountDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int discountId = intent.getIntExtra("id", -1);
 
-        if(discountId != -1){
-            Discount discount = Discount.getDiscountById(discountId);
+        DiscountDetailsPresenter discountDetailsPresenter = new DiscountDetailsPresenterImpl(this,
+                new DiscountDetailsInteractorImpl());
+        discountDetailsPresenter.loadDetails(discountId);
+    }
 
-            txtName.setText(discount.getName());
-            txtDescription.setText(discount.getDescription());
+    @Override
+    public void showName(String name) {
+        txtName.setText(name);
+    }
 
-            // import java.text.SimpleDateFormat;
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    @Override
+    public void showDescription(String details) {
+        txtDescription.setText(details);
+    }
 
-            txtStartDate.setText(sdf.format(discount.getStartDate()));
-            txtEndDate.setText(" -- " + sdf.format(discount.getEndDate()));
-        }
+    @Override
+    public void showStartDate(String startDate) {
+        txtStartDate.setText(startDate);
+    }
+
+    @Override
+    public void showEndDate(String endDate) {
+        txtEndDate.setText(endDate);
     }
 }

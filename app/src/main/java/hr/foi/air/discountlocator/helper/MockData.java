@@ -1,7 +1,7 @@
 package hr.foi.air.discountlocator.helper;
 
-import hr.foi.air.database.entities.Discount;
-import hr.foi.air.database.entities.Store;
+import hr.foi.air.discountlocator.data.entities.Discount;
+import hr.foi.air.discountlocator.data.entities.Store;
 
 /**
  * Created by Ivan on 6.10.2016..
@@ -9,7 +9,7 @@ import hr.foi.air.database.entities.Store;
 
 public class MockData {
 
-    public static void writeAll(){
+    public static void writeAll() {
         Store acmeStore = new Store();
         acmeStore.setName("ACME Store");
         acmeStore.save();

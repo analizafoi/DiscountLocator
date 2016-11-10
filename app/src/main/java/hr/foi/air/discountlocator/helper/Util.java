@@ -12,7 +12,7 @@ import java.util.Locale;
  */
 
 public class Util {
-    public void setLanguage(Context context){
+    public void setLanguage(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String lang = preferences.getString("pref_lang", "en");
 

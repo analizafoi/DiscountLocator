@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">DiscountLocator</string>
-    <string name="preferences">Preferences</string>
-    <string name="cancel">Cancel</string>
-    <string name="delete">Delete</string>
-    <string name="removal_question">Do you wish to remove this item?</string>
     <string name="username">Username</string>
     <string name="load_data_from">Load data from web service by default?</string>
     <string name="app_lang_pref">Language preference</string>

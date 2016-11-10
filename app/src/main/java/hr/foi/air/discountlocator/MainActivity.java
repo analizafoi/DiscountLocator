@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity implements StoreListView {
     @Override
     public void showStoreList(List<Store> stores) {
         List<ExpandableStoreItem> storeItemList = new ArrayList<ExpandableStoreItem>();
-        if (stores != null) {
+        if(stores != null) {
             for (Store store : stores) {
                 storeItemList.add(new ExpandableStoreItem(store));
             }
             RecyclerView mRecycler = (RecyclerView) findViewById(R.id.main_recycler);
-            if (mRecycler != null) {
+            if(mRecycler != null) {
                 adapter = new StoreAdapter(this, storeItemList);
                 mRecycler.setAdapter(adapter);
                 mRecycler.setLayoutManager(new LinearLayoutManager(this));

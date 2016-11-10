@@ -27,6 +27,7 @@ public class AirWebServiceCaller {
 
     // constructor
     public AirWebServiceCaller(AirWebServiceListener airWebServiceListener){
+        this.mAirWebServiceHandler = airWebServiceListener;
         OkHttpClient client = new OkHttpClient();
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)

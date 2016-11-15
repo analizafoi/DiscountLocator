@@ -62,6 +62,7 @@ public class DiscountViewHolder extends ChildViewHolder {
 
         FragmentTransaction ft = CurrentActivity.getActivity().getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, ddf);
+        ft.addToBackStack("DiscountDetailsFragment");
         ft.commit();
     }
 

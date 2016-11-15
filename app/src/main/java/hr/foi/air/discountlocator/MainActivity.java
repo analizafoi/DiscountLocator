@@ -130,4 +130,25 @@ public class MainActivity extends AppCompatActivity  implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount() > 0);
         mDrawerToggle.syncState();
     }
+
+    @Override
+    public void onBackPressed() {
+        if(mFragmentManager.getBackStackEntryCount() != 0){
+            // there is something on the stack, I'm in the fragment
+            if(mDrawer.isDrawerOpen(GravityCompat.START)){
+                mDrawer.closeDrawer(GravityCompat.START);
+            }
+            else{
+                mFragmentManager.popBackStack();
+            }
+        } else {
+            // I'm on the landing page, close the drawer or exit
+            if(mDrawer.isDrawerOpen(GravityCompat.START)){
+                mDrawer.closeDrawer(GravityCompat.START);
+            }
+            else{
+                super.onBackPressed();
+            }
+        }
+    }
 }

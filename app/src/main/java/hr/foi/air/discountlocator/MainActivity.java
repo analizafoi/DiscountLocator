@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity  implements
 
         mFragmentManager = getFragmentManager();
         mFragmentManager.addOnBackStackChangedListener(this);
+
+        //this listener has to be after the mDrawerToggle is initialized
+        mToolbar.setNavigationOnClickListener(navigationClick);
 
         DiscountListFragment mDiscountListFragment = new DiscountListFragment();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -151,4 +155,16 @@ public class MainActivity extends AppCompatActivity  implements
             }
         }
     }
+
+    View.OnClickListener navigationClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(getFragmentManager().getBackStackEntryCount() == 0) {
+                mDrawer.openDrawer(GravityCompat.START);
+            }
+            else{
+                onBackPressed();
+            }
+        }
+    };
 }

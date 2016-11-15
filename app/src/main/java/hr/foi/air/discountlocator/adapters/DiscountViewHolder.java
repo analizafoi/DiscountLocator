@@ -1,8 +1,8 @@
 package hr.foi.air.discountlocator.adapters;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,10 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import hr.foi.air.core.CurrentActivity;
 import hr.foi.air.database.entities.Discount;
 import hr.foi.air.database.entities.Store;
-import hr.foi.air.discountlocator.DiscountDetailsActivity;
 import hr.foi.air.discountlocator.R;
+import hr.foi.air.discountlocator.fragments.DiscountDetailsFragment;
 
 /**
  * Created by Ivan on 23.10.2016..
@@ -56,9 +57,12 @@ public class DiscountViewHolder extends ChildViewHolder {
         Bundle args = new Bundle();
         args.putInt("id", mDiscount.getId());
 
-        Intent intent = new Intent(itemView.getContext(), DiscountDetailsActivity.class);
-        intent.putExtras(args);
-        itemView.getContext().startActivity(intent);
+        DiscountDetailsFragment ddf = new DiscountDetailsFragment();
+        ddf.setArguments(args);
+
+        FragmentTransaction ft = CurrentActivity.getActivity().getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, ddf);
+        ft.commit();
     }
 
     @OnLongClick

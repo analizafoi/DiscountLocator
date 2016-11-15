@@ -27,7 +27,8 @@ import hr.foi.air.discountlocator.helper.Util;
 
 public class MainActivity extends AppCompatActivity  implements
         SharedPreferences.OnSharedPreferenceChangeListener,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        FragmentManager.OnBackStackChangedListener{
 
     private Util util = new Util();
     private Toolbar mToolbar;
@@ -63,8 +64,10 @@ public class MainActivity extends AppCompatActivity  implements
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        DiscountListFragment mDiscountListFragment = new DiscountListFragment();
         mFragmentManager = getFragmentManager();
+        mFragmentManager.addOnBackStackChangedListener(this);
+
+        DiscountListFragment mDiscountListFragment = new DiscountListFragment();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.fragment_container, mDiscountListFragment);
         mFragmentTransaction.commit();
@@ -119,5 +122,12 @@ public class MainActivity extends AppCompatActivity  implements
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        mDrawerToggle.setDrawerIndicatorEnabled(mFragmentManager.getBackStackEntryCount() == 0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount() > 0);
+        mDrawerToggle.syncState();
     }
 }

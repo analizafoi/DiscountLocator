@@ -14,6 +14,7 @@ import java.util.List;
 
 import hr.foi.air.core.DataLoadedListener;
 import hr.foi.air.core.DataLoader;
+import hr.foi.air.core.NavigationItem;
 import hr.foi.air.database.entities.Discount;
 import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.R;
@@ -26,8 +27,10 @@ import hr.foi.air.discountlocator.loaders.WsDataLoader;
  * Created by Zlatko on 1.11.2016..
  */
 
-public class DiscountListFragment extends Fragment implements DataLoadedListener {
+public class DiscountListFragment extends Fragment implements DataLoadedListener, NavigationItem {
     private StoreRecyclerAdapter adapter;
+    private int position;
+    private String name = "List view";
 
     @Nullable
     @Override
@@ -74,4 +77,25 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
             }
         }
     }
+
+    @Override
+    public String getItemName() {
+        return name;
+    }
+
+    @Override
+    public int getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
 }

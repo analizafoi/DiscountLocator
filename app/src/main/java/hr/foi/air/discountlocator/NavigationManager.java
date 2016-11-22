@@ -10,9 +10,15 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import hr.foi.air.core.DataLoadedListener;
+import hr.foi.air.core.DataLoader;
 import hr.foi.air.core.NavigationItem;
+import hr.foi.air.database.entities.Discount;
+import hr.foi.air.database.entities.Store;
+import hr.foi.air.discountlocator.loaders.DbDataLoader;
+import hr.foi.air.discountlocator.loaders.WsDataLoader;
 
-public class NavigationManager {
+public class NavigationManager implements DataLoadedListener {
 
     private static NavigationManager instance;
     public ArrayList<NavigationItem> navigationItems;
@@ -20,10 +26,15 @@ public class NavigationManager {
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private int mItemGroupId;
+    private ArrayList<Store> stores;
+    private ArrayList<Discount> discounts;
 
     // private constructor
     private NavigationManager(){
         navigationItems = new ArrayList<NavigationItem>();
+        stores = new ArrayList<Store>();
+        discounts = new ArrayList<Discount>();
+        requestForData();
     }
 
     public static NavigationManager getInstance(){
@@ -73,5 +84,24 @@ public class NavigationManager {
         mNavigationView.getMenu().add(mItemGroupId, newItem.getPosition(), newItem.getPosition() + 1, newItem.getItemName())
                 .setIcon(newItem.getIcon(mHandlerActivity))
                 .setCheckable(true);
+    }
+
+    public void requestForData(){
+
+        DataLoader dataLoader;
+        if(Store.getAll().isEmpty()){
+            System.out.println("Loading web data");
+            dataLoader = new WsDataLoader();
+        } else {
+            System.out.println("Loading local data");
+            dataLoader = new DbDataLoader();
+        }
+        dataLoader.loadData(this);
+    }
+
+    @Override
+    public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
+        this.stores = stores;
+        this.discounts = discounts;
     }
 }

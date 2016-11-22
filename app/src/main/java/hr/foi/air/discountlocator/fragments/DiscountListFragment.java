@@ -5,31 +5,23 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import hr.foi.air.core.DataLoadedListener;
-import hr.foi.air.core.DataLoader;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.database.entities.Discount;
 import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.R;
-import hr.foi.air.discountlocator.adapters.ExpandableStoreItem;
 import hr.foi.air.discountlocator.adapters.StoreRecyclerAdapter;
-import hr.foi.air.discountlocator.loaders.DbDataLoader;
-import hr.foi.air.discountlocator.loaders.WsDataLoader;
 
 /**
  * Created by Zlatko on 1.11.2016..
  */
 
-public class DiscountListFragment extends Fragment implements DataLoadedListener, NavigationItem {
+public class DiscountListFragment extends Fragment implements NavigationItem {
     private StoreRecyclerAdapter adapter;
     private int position;
     private String name = "List view";
@@ -43,22 +35,13 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadData();
     }
 
-    public void loadData(){
-
-        DataLoader dataLoader;
-        if(Store.getAll().isEmpty()){
-            System.out.println("Loading web data");
-            dataLoader = new WsDataLoader();
-        } else {
-            System.out.println("Loading local data");
-            dataLoader = new DbDataLoader();
-        }
-        dataLoader.loadData(this);
+    @Override
+    public void loadData(ArrayList<Store> stores, ArrayList<Discount> discounts) {
     }
 
+    /*
     @Override
     public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
         List<ExpandableStoreItem> storeItemList = new ArrayList<ExpandableStoreItem>();
@@ -79,6 +62,7 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
             }
         }
     }
+    */
 
     @Override
     public String getItemName() {

@@ -47,6 +47,7 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.setMyLocationEnabled(true);
     }
 
     @Override

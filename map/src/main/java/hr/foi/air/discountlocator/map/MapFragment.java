@@ -1,6 +1,8 @@
 package hr.foi.air.discountlocator.map;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -37,6 +39,11 @@ public class MapFragment extends Fragment implements NavigationItem {
     @Override
     public Fragment getFragment() {
         return this;
+    }
+
+    @Override
+    public Drawable getIcon(Context context) {
+        return context.getResources().getDrawable(android.R.drawable.ic_menu_mylocation);
     }
 
 }

@@ -1,6 +1,8 @@
 package hr.foi.air.discountlocator.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -96,6 +98,11 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
     @Override
     public Fragment getFragment() {
         return this;
+    }
+
+    @Override
+    public Drawable getIcon(Context context) {
+        return context.getResources().getDrawable(android.R.drawable.ic_menu_agenda);
     }
 
 }

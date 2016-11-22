@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import hr.foi.air.core.NavigationItem;
+import hr.foi.air.core.ReadyForDataListener;
 
 public class MapFragment extends Fragment implements NavigationItem {
 
     private int position;
     private String name = "Map view";
+    private ReadyForDataListener readyForDataListener;
 
     @Nullable
     @Override
@@ -44,6 +46,11 @@ public class MapFragment extends Fragment implements NavigationItem {
     @Override
     public Drawable getIcon(Context context) {
         return context.getResources().getDrawable(android.R.drawable.ic_menu_mylocation);
+    }
+
+    @Override
+    public void setReadyForDataListener(ReadyForDataListener readyForDataListener) {
+        this.readyForDataListener = readyForDataListener;
     }
 
 }

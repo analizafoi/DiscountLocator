@@ -10,4 +10,5 @@ public interface NavigationItem {
     public void setPosition(int position);
     public Fragment getFragment();
     public Drawable getIcon(Context context);
+    public void setReadyForDataListener(ReadyForDataListener readyForDataListener);
 };

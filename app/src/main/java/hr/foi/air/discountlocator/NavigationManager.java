@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import hr.foi.air.core.DataLoadedListener;
 import hr.foi.air.core.DataLoader;
 import hr.foi.air.core.NavigationItem;
+import hr.foi.air.core.ReadyForDataListener;
 import hr.foi.air.database.entities.Discount;
 import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.loaders.DbDataLoader;
 import hr.foi.air.discountlocator.loaders.WsDataLoader;
 
-public class NavigationManager implements DataLoadedListener {
+public class NavigationManager implements DataLoadedListener, ReadyForDataListener {
 
     private static NavigationManager instance;
     public ArrayList<NavigationItem> navigationItems;
@@ -69,6 +70,8 @@ public class NavigationManager implements DataLoadedListener {
             // uses the menu item to find the NavigationItem (interface implementator)
             NavigationItem clickedItem = navigationItems.get(menuItem.getItemId());
 
+            clickedItem.setReadyForDataListener(this);
+
             FragmentManager fragmentManager = mHandlerActivity.getFragmentManager();
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragmentManager.beginTransaction()
@@ -103,5 +106,10 @@ public class NavigationManager implements DataLoadedListener {
     public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
         this.stores = stores;
         this.discounts = discounts;
+    }
+
+    @Override
+    public void onReadyForData(NavigationItem navigationItem) {
+
     }
 }

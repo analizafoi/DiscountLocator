@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import hr.foi.air.core.NavigationItem;
+import hr.foi.air.core.ReadyForDataListener;
 import hr.foi.air.database.entities.Discount;
 import hr.foi.air.database.entities.Store;
 import hr.foi.air.discountlocator.R;
@@ -25,6 +26,7 @@ public class DiscountListFragment extends Fragment implements NavigationItem {
     private StoreRecyclerAdapter adapter;
     private int position;
     private String name = "List view";
+    private ReadyForDataListener readyForDataListener;
 
     @Nullable
     @Override
@@ -35,6 +37,7 @@ public class DiscountListFragment extends Fragment implements NavigationItem {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        readyForDataListener.onReadyForData(this);
     }
 
     @Override
@@ -87,6 +90,11 @@ public class DiscountListFragment extends Fragment implements NavigationItem {
     @Override
     public Drawable getIcon(Context context) {
         return context.getResources().getDrawable(android.R.drawable.ic_menu_agenda);
+    }
+
+    @Override
+    public void setReadyForDataListener(ReadyForDataListener readyForDataListener) {
+        this.readyForDataListener = readyForDataListener;
     }
 
 }

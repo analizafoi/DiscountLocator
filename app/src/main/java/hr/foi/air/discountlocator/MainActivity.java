@@ -1,7 +1,6 @@
 package hr.foi.air.discountlocator;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -25,6 +24,7 @@ import butterknife.ButterKnife;
 import hr.foi.air.core.CurrentActivity;
 import hr.foi.air.discountlocator.fragments.DiscountListFragment;
 import hr.foi.air.discountlocator.helper.Util;
+import hr.foi.air.discountlocator.map.MapFragment;
 
 public class MainActivity extends AppCompatActivity  implements
         SharedPreferences.OnSharedPreferenceChangeListener,
@@ -71,10 +71,9 @@ public class MainActivity extends AppCompatActivity  implements
         //this listener has to be after the mDrawerToggle is initialized
         mToolbar.setNavigationOnClickListener(navigationClick);
 
-        DiscountListFragment mDiscountListFragment = new DiscountListFragment();
-        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.fragment_container, mDiscountListFragment);
-        mFragmentTransaction.commit();
+        NavigationManager nm = NavigationManager.getInstance();
+        nm.addItem(new DiscountListFragment());
+        nm.addItem(new MapFragment());
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

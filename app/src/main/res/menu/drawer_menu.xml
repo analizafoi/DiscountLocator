@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_list"
-            android:icon="@android:drawable/ic_menu_agenda"
-            android:title="@string/menu_list" />
-        <item
-            android:id="@+id/nav_map"
-            android:icon="@android:drawable/ic_menu_mylocation"
-            android:title="@string/menu_map" />
+    <group
+        android:id="@+id/dynamic_group"
+        android:orderInCategory="0"
+        android:checkableBehavior="single">
+
     </group>
-    <item android:title="Additional">
-        <menu>
-            <item
-                android:id="@+id/menu_about"
-                android:icon="@android:drawable/ic_menu_info_details"
-                android:title="@string/menu_about" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/additional_group"
+        android:checkableBehavior="none"
+        android:orderInCategory="100">
+        <item android:title="Additional">
+            <menu>
+                <item
+                    android:orderInCategory="1"
+                    android:id="@+id/menu_about"
+                    android:icon="@android:drawable/ic_menu_info_details"
+                    android:title="@string/menu_about" />
+            </menu>
+        </item>
+    </group>
 </menu>

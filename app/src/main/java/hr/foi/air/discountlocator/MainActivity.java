@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity  implements
         nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
         nm.addItem(new DiscountListFragment());
         nm.addItem(new MapFragment());
+        nm.showDefaultFragment();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

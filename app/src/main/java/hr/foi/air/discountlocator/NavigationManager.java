@@ -73,17 +73,21 @@ public class NavigationManager implements DataLoadedListener, ReadyForDataListen
             // uses the menu item to find the NavigationItem (interface implementator)
             NavigationItem clickedItem = navigationItems.get(menuItem.getItemId());
 
-            this.moduleReadyForDataFlag = false;
-            this.readyForDataModule = null;
-            clickedItem.setReadyForDataListener(this);
-
-            FragmentManager fragmentManager = mHandlerActivity.getFragmentManager();
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, clickedItem.getFragment())
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit();
+            displayFragment(clickedItem);
         }
+    }
+
+    private void displayFragment(NavigationItem clickedItem) {
+        this.moduleReadyForDataFlag = false;
+        this.readyForDataModule = null;
+        clickedItem.setReadyForDataListener(this);
+
+        FragmentManager fragmentManager = mHandlerActivity.getFragmentManager();
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, clickedItem.getFragment())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
     }
 
     public void addItem(NavigationItem newItem){
@@ -127,6 +131,20 @@ public class NavigationManager implements DataLoadedListener, ReadyForDataListen
         if (this.dataLoadedFlag == true && this.moduleReadyForDataFlag == true)
         {
             readyForDataModule.loadData(stores, discounts);
+        }
+    }
+
+    public void showDefaultFragment(NavigationItem preferredItem) {
+
+        displayFragment(preferredItem);
+        mNavigationView.getMenu().getItem(preferredItem.getPosition()).setChecked(true);
+    }
+
+    public void showDefaultFragment()
+    {
+        if (navigationItems.size() > 0)
+        {
+            showDefaultFragment(navigationItems.get(0));
         }
     }
 }

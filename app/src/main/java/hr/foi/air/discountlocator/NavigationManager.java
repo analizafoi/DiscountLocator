@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,9 @@ public class NavigationManager implements DataLoadedListener, ReadyForDataListen
     private int mItemGroupId;
     private ArrayList<Store> stores;
     private ArrayList<Discount> discounts;
+    private boolean dataLoadedFlag = false;
+    private boolean moduleReadyForDataFlag = false;
+    private NavigationItem readyForDataModule;
 
     // private constructor
     private NavigationManager(){
@@ -70,6 +74,8 @@ public class NavigationManager implements DataLoadedListener, ReadyForDataListen
             // uses the menu item to find the NavigationItem (interface implementator)
             NavigationItem clickedItem = navigationItems.get(menuItem.getItemId());
 
+            this.moduleReadyForDataFlag = false;
+            this.readyForDataModule = null;
             clickedItem.setReadyForDataListener(this);
 
             FragmentManager fragmentManager = mHandlerActivity.getFragmentManager();
@@ -106,10 +112,27 @@ public class NavigationManager implements DataLoadedListener, ReadyForDataListen
     public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
         this.stores = stores;
         this.discounts = discounts;
+        this.dataLoadedFlag = true;
+        synchronizeAndSendData();
     }
 
     @Override
     public void onReadyForData(NavigationItem navigationItem) {
+        this.readyForDataModule = navigationItem;
+        this.moduleReadyForDataFlag = true;
+        synchronizeAndSendData();
+    }
 
+    private void synchronizeAndSendData()
+    {
+        if (this.dataLoadedFlag == true && this.moduleReadyForDataFlag == true)
+        {
+            Toast.makeText(mHandlerActivity, "SYNCHRONIZED!", Toast.LENGTH_LONG).show();
+            //send data to module
+        }
+        else
+        {
+            Toast.makeText(mHandlerActivity, "NOT SYNCHRONIZED!", Toast.LENGTH_LONG).show();
+        }
     }
 }

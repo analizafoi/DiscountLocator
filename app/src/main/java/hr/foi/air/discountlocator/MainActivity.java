@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -85,10 +86,19 @@ public class MainActivity extends AppCompatActivity  implements
 
         switch(id)
         {
-            //handle cases
+            //Handle click on static options
+            case R.id.menu_about:
+                mDrawer.closeDrawer(GravityCompat.START);
+                Toast.makeText(this, R.string.menu_about, Toast.LENGTH_LONG).show();
+                //some code goes here
+                break;
+
+            //Handle clicks on other (dynamicaly added drawer) items
+            default:
+                NavigationManager.getInstance().selectNavigationItem(item);
+                break;
         }
 
-        mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

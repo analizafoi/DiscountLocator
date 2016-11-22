@@ -36,5 +36,6 @@ public class NavigationManager {
     public void addItem(NavigationItem newItem){
         newItem.setPosition(navigationItems.size());
         navigationItems.add(newItem);
+        mNavigationView.getMenu().add(mItemGroupId, newItem.getPosition(), newItem.getPosition() + 1, newItem.getItemName());
     }
 }

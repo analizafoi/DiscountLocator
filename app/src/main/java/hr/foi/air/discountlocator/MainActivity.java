@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity  implements
         mToolbar.setNavigationOnClickListener(navigationClick);
 
         NavigationManager nm = NavigationManager.getInstance();
+        nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
         nm.addItem(new DiscountListFragment());
         nm.addItem(new MapFragment());
     }

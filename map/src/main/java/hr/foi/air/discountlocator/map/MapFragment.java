@@ -8,8 +8,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.ArrayList;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.core.ReadyForDataListener;
+import hr.foi.air.database.entities.Discount;
+import hr.foi.air.database.entities.Store;
 
 public class MapFragment extends Fragment implements NavigationItem {
 
@@ -53,4 +56,8 @@ public class MapFragment extends Fragment implements NavigationItem {
         this.readyForDataListener = readyForDataListener;
     }
 
+    @Override
+    public void loadData(ArrayList<Store> stores, ArrayList<Discount> discounts) {
+
+    }
 }

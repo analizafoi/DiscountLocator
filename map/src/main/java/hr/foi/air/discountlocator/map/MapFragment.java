@@ -48,6 +48,7 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.setMyLocationEnabled(true);
+        readyForDataListener.onReadyForData(this);
     }
 
     @Override
@@ -83,5 +84,18 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     @Override
     public void loadData(ArrayList<Store> stores, ArrayList<Discount> discounts) {
 
+        if (map != null)
+        {
+            LatLng position = null;
+            for (Store s : stores)
+            {
+                position = new LatLng(
+                        (double)s.getLatitude() / 1000000,
+                        (double)s.getLongitude() / 1000000);
+                map.addMarker(new MarkerOptions()
+                    .position(position)
+                    .title(s.getName()));
+            }
+        }
     }
 }

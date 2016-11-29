@@ -1,6 +1,7 @@
 package hr.foi.air.discountlocator;
 
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -10,12 +11,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -77,6 +80,43 @@ public class MainActivity extends AppCompatActivity  implements
         nm.addItem(new DiscountListFragment());
         nm.addItem(new MapFragment());
         nm.showDefaultFragment();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        CheckExtrasForNotificationData(intent);
+    }
+
+    private void CheckExtrasForNotificationData(Intent i)
+    {
+        Bundle data = i.getExtras();
+
+        if (data != null) {
+            String b = data.containsKey("body") ? data.getString("body") : "";
+            if (!b.isEmpty())
+            {
+                showMyDialog("Message", b);
+            }
+        }
+    }
+
+    private void showMyDialog(String t, String b) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.notification_dialog, null);
+
+        dialog.setView(dialogView);
+
+        dialog.setTitle(t);
+        TextView tv = (TextView) dialogView.findViewById(R.id.message);
+        tv.setText(b);
+        dialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

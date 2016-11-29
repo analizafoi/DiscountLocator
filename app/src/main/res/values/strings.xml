@@ -14,4 +14,5 @@
     <string name="menu_list">List view</string>
     <string name="menu_map">Map view</string>
     <string name="menu_about">About app</string>
+    <string name="ok">Got it!</string>
 </resources>

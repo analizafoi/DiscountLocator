@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity  implements
         setContentView(R.layout.activity_main);
         CurrentActivity.setActivity(this);
 
+        CheckExtrasForNotificationData(getIntent());
         util.setLanguage(this);
 
         ButterKnife.bind(this);

@@ -41,7 +41,8 @@ public class DiscountListFragment extends Fragment implements NavigationItem {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        readyForDataListener.onReadyForData(this);
+        if (readyForDataListener != null)
+            readyForDataListener.onReadyForData(this);
     }
 
     @Override

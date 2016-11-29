@@ -1,10 +1,13 @@
 package hr.foi.air.discountlocator.map;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +51,19 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        map.setMyLocationEnabled(true);
+        if (!(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            map.setMyLocationEnabled(true);
+        }
+        else
+        {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        }
         if (readyForDataListener != null)
             readyForDataListener.onReadyForData(this);
     }

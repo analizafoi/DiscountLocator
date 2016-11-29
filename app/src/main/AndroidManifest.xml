@@ -22,6 +22,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".AppPreferenceActivity"></activity>
+
+        <service
+            android:name=".services.GcmRegistrationIntentService"
+            android:exported="false"/>
+
+        <service
+            android:name=".services.GcmInstanceIDListenerService"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

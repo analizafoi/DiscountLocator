@@ -26,6 +26,7 @@ import hr.foi.air.core.CurrentActivity;
 import hr.foi.air.discountlocator.fragments.DiscountListFragment;
 import hr.foi.air.discountlocator.helper.Util;
 import hr.foi.air.discountlocator.map.MapFragment;
+import hr.foi.air.discountlocator.services.GcmRegistrationIntentService;
 
 public class MainActivity extends AppCompatActivity  implements
         SharedPreferences.OnSharedPreferenceChangeListener,
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity  implements
         CurrentActivity.setActivity(this);
 
         util.setLanguage(this);
+
+        registerWithGcm();
 
         ButterKnife.bind(this);
         FlowManager.init(new FlowConfig.Builder(this).build());
@@ -178,4 +181,16 @@ public class MainActivity extends AppCompatActivity  implements
             }
         }
     };
+
+    private void registerWithGcm() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String gcmToken = preferences.getString(GcmRegistrationIntentService.GCM_TOKEN, "");
+        if(gcmToken.isEmpty()) {
+            Intent i = new Intent(this, GcmRegistrationIntentService.class);
+            startService(i);
+        } else {
+            System.out.println("Already registered with: " + gcmToken);
+        }
+    }
+
 }

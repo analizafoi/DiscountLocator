@@ -50,6 +50,10 @@ dependencies {
 
     //firebase
     compile 'com.google.firebase:firebase-messaging:9.4.0'
+
+    //ads
+    compile 'com.google.android.gms:play-services-ads:9.4.0'
+
 }
 
 //firebase

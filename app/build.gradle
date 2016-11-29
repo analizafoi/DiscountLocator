@@ -48,3 +48,6 @@ dependencies {
     // picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
+
+//firebase
+apply plugin: 'com.google.gms.google-services'

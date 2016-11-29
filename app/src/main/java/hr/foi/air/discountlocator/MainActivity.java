@@ -1,6 +1,8 @@
 package hr.foi.air.discountlocator;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -16,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity  implements
         util.setLanguage(this);
 
         registerWithGcm();
+        CheckExtrasForNotificationData(getIntent());
 
         ButterKnife.bind(this);
         FlowManager.init(new FlowConfig.Builder(this).build());
@@ -170,6 +174,12 @@ public class MainActivity extends AppCompatActivity  implements
         }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        CheckExtrasForNotificationData(intent);
+    }
+
     View.OnClickListener navigationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -192,5 +202,37 @@ public class MainActivity extends AppCompatActivity  implements
             System.out.println("Already registered with: " + gcmToken);
         }
     }
+
+    private void CheckExtrasForNotificationData(Intent i)
+    {
+        Bundle data = i.getExtras();
+
+        if (data != null) {
+            String b = data.containsKey("body") ? data.getString("body") : "";
+            if (!b.isEmpty())
+            {
+                showMyDialog("Message", b);
+            }
+        }
+    }
+
+    private void showMyDialog(String t, String b) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.notification_dialog, null);
+
+        dialog.setView(dialogView);
+
+        dialog.setTitle(t);
+        TextView tv = (TextView) dialogView.findViewById(R.id.message);
+        tv.setText(b);
+        dialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 
 }

@@ -21,11 +21,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import butterknife.ButterKnife;
 import hr.foi.air.core.CurrentActivity;
+import hr.foi.air.discountlocator.ads.DlAdsListener;
 import hr.foi.air.discountlocator.fragments.DiscountListFragment;
 import hr.foi.air.discountlocator.helper.Util;
 import hr.foi.air.discountlocator.map.MapFragment;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity  implements
     private NavigationView mNavigationView;
     private FragmentManager mFragmentManager;
     private SharedPreferences mSharedPreferences;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,35 @@ public class MainActivity extends AppCompatActivity  implements
         nm.addItem(new DiscountListFragment());
         nm.addItem(new MapFragment());
         nm.showDefaultFragment();
+
+        //initializing ads
+        initializeAds();
+    }
+
+    private void initializeAds(){
+        adView = (AdView) findViewById(R.id.adView);
+        adView.setAdListener(new DlAdsListener(this));
+        AdRequest.Builder adBuilder = new AdRequest.Builder();
+        //adBuilder.addTestDevice("Device ID"); //<--- Device ID, sometimes necessary for testing
+        adView.loadAd(adBuilder.build());
+    }
+
+    @Override
+    protected void onPause() {
+        adView.pause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
     }
 
     @Override

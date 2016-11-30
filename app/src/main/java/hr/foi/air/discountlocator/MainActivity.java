@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +34,8 @@ import hr.foi.air.discountlocator.ads.DlAdsListener;
 import hr.foi.air.discountlocator.fragments.BuyMapFragment;
 import hr.foi.air.discountlocator.fragments.DiscountListFragment;
 import hr.foi.air.discountlocator.helper.Util;
+import hr.foi.air.discountlocator.iab.IabPerformer;
+import hr.foi.air.discountlocator.iab_utils.IabHelper;
 import hr.foi.air.discountlocator.map.MapFragment;
 
 public class MainActivity extends AppCompatActivity  implements
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity  implements
     private FragmentManager mFragmentManager;
     private SharedPreferences mSharedPreferences;
     private AdView adView;
+    private IabHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,22 @@ public class MainActivity extends AppCompatActivity  implements
 
         //initializing ads
         initializeAds();
+
+        //iab
+        mHelper = IabPerformer.setupIabHelper(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(IabPerformer.TAG, "onActivityResult(" + requestCode + "," + resultCode + ","
+                + data);
+
+        // Pass on the activity result to the helper for handling
+        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        } else {
+            Log.d(IabPerformer.TAG, "onActivityResult handled by IABUtil.");
+        }
     }
 
     private void initializeAds(){

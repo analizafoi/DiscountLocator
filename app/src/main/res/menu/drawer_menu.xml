@@ -17,6 +17,11 @@
                     android:id="@+id/menu_about"
                     android:icon="@android:drawable/ic_menu_info_details"
                     android:title="@string/menu_about" />
+                <item
+                    android:orderInCategory="2"
+                    android:id="@+id/menu_consume_map"
+                    android:icon="@android:drawable/ic_menu_delete"
+                    android:title="@string/menu_consume_map" />
             </menu>
         </item>
     </group>

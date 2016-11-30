@@ -200,6 +200,12 @@ public class MainActivity extends AppCompatActivity  implements
                 //some code goes here
                 break;
 
+            case R.id.menu_consume_map:
+                mDrawer.closeDrawer(GravityCompat.START);
+                IabPerformer.ConsumeMap();
+                setUpAvailableModules();
+                break;
+
             //Handle clicks on other (dynamicaly added drawer) items
             default:
                 NavigationManager.getInstance().selectNavigationItem(item);

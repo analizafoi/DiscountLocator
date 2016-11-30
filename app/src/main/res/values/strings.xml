@@ -18,4 +18,5 @@
 
     <string name="in_app_map_description">This in app product will enable you to see your discounts on the map, relative to your current possition. For more details, see image bellow.</string>
     <string name="in_app_map_buy">Buy for $0.99</string>
+    <string name="menu_consume_map">TEST: Consume Map</string>
 </resources>

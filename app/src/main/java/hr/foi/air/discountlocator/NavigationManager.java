@@ -98,6 +98,12 @@ public class NavigationManager implements DataLoadedListener, ReadyForDataListen
                 .setCheckable(true);
     }
 
+    public void clearNavigationItems()
+    {
+        mNavigationView.getMenu().removeGroup(mItemGroupId);
+        navigationItems.clear();
+    }
+
     public void requestForData(){
 
         DataLoader dataLoader;

@@ -28,7 +28,9 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 
 import butterknife.ButterKnife;
 import hr.foi.air.core.CurrentActivity;
+import hr.foi.air.core.PreferenceManagerHelper;
 import hr.foi.air.discountlocator.ads.DlAdsListener;
+import hr.foi.air.discountlocator.fragments.BuyMapFragment;
 import hr.foi.air.discountlocator.fragments.DiscountListFragment;
 import hr.foi.air.discountlocator.helper.Util;
 import hr.foi.air.discountlocator.map.MapFragment;
@@ -80,11 +82,8 @@ public class MainActivity extends AppCompatActivity  implements
         //this listener has to be after the mDrawerToggle is initialized
         mToolbar.setNavigationOnClickListener(navigationClick);
 
-        NavigationManager nm = NavigationManager.getInstance();
-        nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
-        nm.addItem(new DiscountListFragment());
-        nm.addItem(new MapFragment());
-        nm.showDefaultFragment();
+        //Navigation manager
+        setUpAvailableModules();
 
         //initializing ads
         initializeAds();
@@ -96,6 +95,19 @@ public class MainActivity extends AppCompatActivity  implements
         AdRequest.Builder adBuilder = new AdRequest.Builder();
         //adBuilder.addTestDevice("Device ID"); //<--- Device ID, sometimes necessary for testing
         adView.loadAd(adBuilder.build());
+    }
+
+    private void setUpAvailableModules()
+    {
+        NavigationManager nm = NavigationManager.getInstance();
+        nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
+        nm.clearNavigationItems();
+        nm.addItem(new DiscountListFragment());
+        if (PreferenceManagerHelper.getMapBought(this))
+            nm.addItem(new MapFragment());
+        else
+            nm.addItem(new BuyMapFragment());
+        nm.showDefaultFragment();
     }
 
     @Override
